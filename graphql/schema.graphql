@@ -1,0 +1,74 @@
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+"Indicates what fields are available at the top level of a query operation."
+type Query {
+    users: [User!]! @all
+    user(userId: ID @eq): User @find
+
+    vehicles:[Vehicle!]! @all
+    vehicle(vehicleId: ID @eq): Vehicle @find
+
+    officers:[officer!]! @all
+    officer(officerId: ID @eq):officer @find
+
+    tickets:[Ticket!]! @all
+    ticketId(ticketId: ID @eq): Ticket @find
+
+    payments:[Payment!]! @all
+    payment(paymentId: ID@eq): Payment @find
+
+    Appeals:[Appeal!] @all
+    Appeal(apparentId: ID @eq): Appeal @find
+
+
+}
+
+type User {
+    userId: ID!
+    sName: String!
+    fName: String!
+    email: String!
+    email_verified_at: DateTime
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+type Vehicle {
+    vehicleId: ID!
+    plateNumber: String!
+    userId: Int!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type officer{
+  officerId:ID!
+  sName:String!
+  fName:String!
+  created_at: DateTime!
+  updated_at: DateTime!
+
+}
+
+type Ticket{
+  ticketId: ID!
+  vehicleId: Int!
+  userId: Int!
+  officerId:Int!
+  amount: Float!
+  location: String!
+}
+type Payment{
+  paymentId: ID!
+  status: String!
+  userId: Int!
+  amount:Float!
+  ticketId:Int!
+}
+type Appeal{
+  appealId: ID!
+  offence: String!
+  reasons: String!
+  userId:Int!
+  tickId:int!
+}
